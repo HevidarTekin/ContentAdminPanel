@@ -1,0 +1,105 @@
+﻿@model Deneme.ViewModels.ViewDetailsModel
+
+@{
+    Layout = "~/Views/Shared/_Layout.cshtml";
+    ViewData["Title"] = Model.Project?.Name ?? "Proje Detayı";
+}
+
+<div class="container my-4">
+
+    <div class="card shadow-sm mb-4">
+        <div class="card-body">
+            <h2 class="h4 mb-3">@Model.Project.Name</h2>
+            <p class="mb-3">@Model.Project.Description</p>
+
+            @if (!string.IsNullOrEmpty(Model.Project.GitHubLink))
+            {
+                <p>
+                    <strong>GitHub:</strong>
+                    <a href="@Model.Project.GitHubLink" target="_blank" class="text-decoration-none">
+                        <i class="bi bi-github me-1"></i> Proje GitHub Sayfası
+                    </a>
+                </p>
+            }
+
+            <p class="text-muted small">
+                <strong>Yorum (@Model.CommentCount)</strong>
+                <span class="mx-2">•</span>
+                @Model.Project.CreatedAt.ToShortDateString()
+                <span class="mx-2">•</span>
+                <i class="bi bi-eye"></i> @Model.Project.ViewCount
+                <span class="mx-2">•</span>
+                <i class="bi bi-heart"></i> @Model.Project.LikeCount
+            </p>
+
+            <form asp-action="LikeProject" method="post" class="d-inline">
+                <input type="hidden" name="id" value="@Model.Project.Id" />
+                <button type="submit" class="btn btn-outline-danger btn-sm">
+                    <i class="bi bi-heart-fill"></i>
+                </button>
+            </form>
+        </div>
+    </div>
+
+    <div class="card shadow-sm mb-4">
+        <div class="card-body">
+            <h2 class="h5 mb-3">Yorumlar</h2>
+            @if (Model.Comments == null || !Model.Comments.Any())
+            {
+                <div class="alert alert-light border">
+                    Henüz yorum yapılmamış. İlk yorumu siz yapın!
+                </div>
+            }
+            else
+            {
+                @foreach (var comment in Model.Comments)
+                {
+                    <div class="card mb-2">
+                        <div class="card-body">
+                            <p>@comment.Content</p>
+                            <small class="text-muted">
+                                Kullanıcı Adı: @comment.UserName | @comment.PublishDate.ToShortDateString()
+                            </small>
+                        </div>
+                    </div>
+                }
+            }
+        </div>
+    </div>
+
+    <h5 class="mt-4">Yorum Yap</h5>
+    <form asp-action="AddComment" method="post" class="mt-3 needs-validation" novalidate>
+        <input type="hidden" name="ProjectId" value="@Model.Project?.Id" />
+        <div class="mb-3">
+            <label for="UserName" class="form-label">Adınız</label>
+            <input type="text" class="form-control" id="UserName" name="UserName" required />
+        </div>
+        <div class="mb-3">
+            <label for="Email" class="form-label">E-Posta</label>
+            <input type="email" class="form-control" id="Email" name="Email" required />
+        </div>
+        <div class="mb-3">
+            <label for="Content" class="form-label">Yorumunuz</label>
+            <textarea class="form-control" id="Content" name="Content" rows="3" required></textarea>
+        </div>
+        <button type="submit" class="btn btn-primary">Yorumu Gönder</button>
+    </form>
+</div>
+
+@section Scripts {
+    <script>
+        (() => {
+            'use strict';
+            const forms = document.querySelectorAll('.needs-validation');
+            Array.from(forms).forEach(form => {
+                form.addEventListener('submit', event => {
+                    if (!form.checkValidity()) {
+                        event.preventDefault();
+                        event.stopPropagation();
+                    }
+                    form.classList.add('was-validated');
+                }, false);
+            });
+        })();
+    </script>
+}

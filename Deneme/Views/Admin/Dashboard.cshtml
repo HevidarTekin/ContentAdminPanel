@@ -1,0 +1,74 @@
+﻿
+@{
+    Layout = "~/Views/Shared/_AdminLayout.cshtml";
+}
+
+@{
+    ViewData["Title"] = "Yönetim Paneli";
+}
+
+<div class="container-fluid mt-4">
+    <h2 class="mb-4">📊 Yönetim Paneli</h2>
+
+    <div class="row g-4">
+        <!-- Blog Özeti -->
+        <div class="col-md-4">
+            <div class="card text-bg-primary h-100">
+                <div class="card-body">
+                    <h5 class="card-title">Projeler</h5>
+                    <p class="card-text">@Model.BlogCount adet proje var.</p>
+                    <a href="/Project/List" class="btn btn-light">Projeleri Gör</a>
+                </div>
+            </div>
+        </div>
+
+        <!-- Mesaj Kutusu -->
+        <div class="col-md-4">
+            <div class="card text-bg-success h-100">
+                <div class="card-body">
+                    <h5 class="card-title">Mesaj Kutusu</h5>
+                    <p class="card-text">@Model.UnreadMessageCount okunmamış mesaj var.</p>
+                    <a href="/Contact/List" class="btn btn-light">Mesajları Oku</a>
+                </div>
+            </div>
+        </div>
+
+        <!-- Kullanıcı Yönetimi -->
+        <div class="col-md-4">
+            <div class="card text-bg-warning h-100">
+                <div class="card-body">
+                    <h5 class="card-title">Kullanıcı Yönetimi</h5>
+                    <p class="card-text">@Model.UserCount kayıtlı kullanıcı var.</p>
+                    <a href="/Admin/Users" class="btn btn-light">Kullanıcılar Görüntüle</a>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <hr class="my-5" />
+
+    <!-- Hızlı Eylemler -->
+    <section aria-label="Hızlı Eylemler">
+        <div class="row g-3">
+            <div class="col-md-6">
+                <div class="card border border-primary">
+                    <div class="card-body">
+                        <h5 class="card-title">📬 Mesajları Oku</h5>
+                        <p class="card-text">Gelen kutusunu kontrol etmek için tıklayın.</p>
+                        <a href="/Contact/List" class="btn btn-outline-primary">Mesajları Gör</a>
+                    </div>
+                </div>
+            </div>
+
+            <div class="col-md-6">
+                <div class="card border border-success">
+                    <div class="card-body">
+                        <h5 class="card-title">👤 Kullanıcı Oluştur</h5>
+                        <p class="card-text">Yeni bir kullanıcı eklemek için tıklayın.</p>
+                        <a href="/Account/Register" class="btn btn-outline-success">Kullanıcı Ekle</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+</div>

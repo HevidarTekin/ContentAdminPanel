@@ -1,0 +1,47 @@
+﻿@model Project
+@{
+    ViewData["Title"] = "Proje Ekle";
+    Layout = "~/Views/Shared/_AdminLayout.cshtml";
+}
+
+<div class="container mt-4">
+    <div class="card shadow-sm">
+        <div class="card-header bg-primary text-white">
+            <h5 class="mb-0">Yeni Proje Ekle</h5>
+        </div>
+        <div class="card-body">
+            <form asp-action="Create" method="post" enctype="multipart/form-data">
+                <div class="mb-3">
+                    <label asp-for="Name" class="form-label">Proje Adı</label>
+                    <input asp-for="Name" class="form-control" aria-required="true" />
+                    <span asp-validation-for="Name" class="text-danger small"></span>
+                </div>
+
+                <div class="mb-3">
+                    <label asp-for="Description" class="form-label">Açıklama</label>
+                    <textarea asp-for="Description" class="form-control" rows="4" aria-required="true"></textarea>
+                    <span asp-validation-for="Description" class="text-danger small"></span>
+                </div>
+
+                <div class="mb-3">
+                    <label asp-for="Tags" class="form-label">Etiketler (virgülle ayır)</label>
+                    <input asp-for="Tags" class="form-control" aria-required="false" />
+                    <span asp-validation-for="Tags" class="text-danger small"></span>
+                </div>
+                <div class="mb-3">
+                    <label asp-for="ImageFile" class="form-label">Görsel Yükle </label>
+                    <input asp-for="ImageFile" type="file" class="form-control" accept=".jpg,.jpeg,.png,.gif,.webp" />
+                    <span asp-validation-for="ImageFile" class="text-danger small"></span>
+                </div>
+                <div class="mb-3">
+    <label for="GitHubLink" class="form-label">GitHub Linki</label>
+    <input type="url" class="form-control" id="GitHubLink" name="GitHubLink" />
+</div>
+
+
+                <button type="submit" class="btn btn-success">Kaydet</button>
+                <a asp-action="List" class="btn btn-secondary ms-2">Listeye Dön</a>
+            </form>
+        </div>
+    </div>
+</div>

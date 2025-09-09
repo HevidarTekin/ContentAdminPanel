@@ -1,0 +1,92 @@
+﻿<!DOCTYPE html>
+<html lang="tr">
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>@ViewData["Title"] - Admin Paneli</title>
+
+    <!-- Bootstrap CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
+
+    <!-- Font Awesome -->
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" rel="stylesheet" />
+
+    <style>
+        body {
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+        }
+
+        .sidebar {
+            width: 250px;
+            background-color: #5dcae8;
+            color: #fff;
+            min-height: 100vh;
+            position: fixed;
+        }
+
+            .sidebar a {
+                color: #fff;
+                text-decoration: none;
+                display: block;
+                padding: 12px 20px;
+            }
+
+                .sidebar a:hover {
+                    background: rgba(255, 255, 255, 0.2);
+                }
+
+        .content {
+            margin-left: 250px;
+            padding: 20px;
+            flex-grow: 1;
+        }
+    </style>
+</head>
+<body>
+    <!-- Sidebar -->
+    <div class="sidebar">
+        <h4 class="p-3">Admin Panel</h4>
+        <a href="/Admin/Dashboard"><i class="fa fa-home me-2"></i> Dashboard</a>
+        <div class="px-3">
+            <a class="d-block text-white" data-bs-toggle="collapse" href="#collapseProjects" role="button" aria-expanded="false" aria-controls="collapseProjects">
+            <i class="fa fa-folder me-2"></i> Projeler
+            </a>
+            <div class="collapse ps-3" id="collapseProjects">
+                <a href="/Project/List" class="d-block text-white"><i class="fa fa-list me-2"></i> Proje Listesi</a>
+                <a href="/Project/Create" class="d-block text-white"><i class="fa fa-plus me-2"></i> Proje Ekle</a>
+            </div>
+        </div>
+        <a href="/Admin/Comments"><i class="fa fa-comments me-2"></i> Yorumlar</a>
+        <a href="/Admin/Users"><i class="fa fa-users me-2"></i> Kullanıcılar</a>
+        <a href="/Contact/List"><i class="fa fa-envelope me-2"></i> İletişimler</a>
+
+        <form action="/Account/Logout" method="post" class="d-block">
+            @Html.AntiForgeryToken()
+            <a href="#" onclick="this.closest('form').submit(); return false;" class="text-danger" style="text-decoration: none; display: block; padding: 12px 20px;">
+                <i class="fa fa-sign-out me-2"></i> Çıkış Yap
+            </a>
+        </form>
+    </div>
+
+    <!-- Main Content -->
+    <div class="content">
+        <nav class="navbar navbar-light bg-light shadow-sm p-3 mb-4 rounded">
+            <span class="navbar-text">Hoşgeldin, <strong>Hevidar</strong></span>
+        </nav>
+
+        <main>
+            @RenderBody()
+        </main>
+
+        <footer class="text-center mt-4">
+            <hr />
+            <p class="text-muted small">&copy; @DateTime.Now.Year - Blog Admin Panel</p>
+        </footer>
+    </div>
+
+    <!-- Bootstrap JS -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
+</body>
+</html>

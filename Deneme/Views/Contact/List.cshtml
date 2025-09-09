@@ -1,0 +1,31 @@
+﻿@model List<Message>
+
+<div class="container-fluid">
+    <h1 class="h3 mb-4 text-gray-800">Gelen Mesajlar</h1>
+
+    <table class="table table-bordered table-hover">
+        <thead class="thead-dark">
+            <tr>
+                <th>Email</th>
+                <th>Mesaj</th>
+                <th>Gönderim Tarihi</th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var item in Model)
+            {
+                <tr>
+                    <td>@item.Email</td>
+                    <td>@item.Content</td> 
+                    <td>@item.CreatedAt.ToShortTimeString()</td>
+                    <td>
+                        <form asp-action="Delete" method="post" onsubmit="return confirm('Bu mesajı silmek istediğinize emin misiniz?');">
+                            <input type="hidden" name="id" value="@item.Id" />
+                            <button type="submit" class="btn btn-sm btn-danger">Sil</button>
+                        </form>
+                    </td>
+                </tr>
+            }
+        </tbody>
+    </table>
+</div>

@@ -1,0 +1,43 @@
+﻿@model List<Deneme.Models.Comment>
+<h2>Yorumlar</h2>
+@if (TempData["Success"] != null)
+{
+    <div class="alert alert-success"> @TempData["Success"]</div>
+   
+}
+@if (TempData["Error"] != null)
+{
+    <div class="alert alert-danger">@TempData["Error"]</div>
+}
+<table class="table table-striped">
+    <thead>
+        <tr>
+            <th>#</th>
+            <th>Kullanıcı</th>
+            <th>Email</th>
+            <th>İçerik</th>
+            <th>Proje</th>
+            <th>Tarih</th>
+            <th>İşlem</th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var comment in Model)
+        {
+            <tr>
+                <td>@comment.CommentId</td>
+                <td>@comment.UserName</td>
+                <td>@comment.Email</td>
+                <td>@comment.Content</td>
+                <td>@comment.Project?.Name</td>
+                <td>@comment.PublishDate.ToShortDateString()</td>
+                <td>
+                    <form asp-action="DeleteComment" method="post" onsubmit="return confirm('Yorumu silmek istediğinize emin misiniz?');">
+                        <input type="hidden" name="id" value="@comment.CommentId" />
+                        <button type="submit" class="btn btn-danger btn-sm">Sil</button>
+                    </form>
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>
